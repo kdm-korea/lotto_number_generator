@@ -12,7 +12,7 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      hash: {
+      uuid: {
         type: DataTypes.STRING,
         allowNull: false,
       },
