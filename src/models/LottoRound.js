@@ -1,23 +1,25 @@
-export default (sequelize, DataTypes) => {
-  const LottoRound = sequelize.define(
-    'LottoRound',
-    {
-      id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true,
-      },
-      round: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        uniqueKey: true,
-      },
-    },
-    {
-      freezeTableName: true,
-    }
-  );
+import Sequelize from 'sequelize';
 
-  return LottoRound;
-};
+export default class LottoRound extends Sequelize.Model {
+  static init(sequelize) {
+    return super.init(
+      {
+        id: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          primaryKey: true,
+          autoIncrement: true,
+        },
+        round: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          uniqueKey: true,
+        },
+      },
+      {
+        sequelize,
+        freezeTableName: true,
+      }
+    );
+  }
+}

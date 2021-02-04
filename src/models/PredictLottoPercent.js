@@ -1,41 +1,43 @@
-export default (sequelize, DataTypes) => {
-  const PredictLottoPercent = sequelize.define(
-    'PredictLottoPercent',
-    {
-      id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true,
-      },
-      ball: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-          min: 1,
-          max: 45,
+import Sequelize from 'sequelize';
+
+export default class PredictLottoPercent extends Sequelize.Model {
+  static init(sequelize) {
+    return super.init(
+      {
+        id: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          primaryKey: true,
+          autoIncrement: true,
+        },
+        ball: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          validate: {
+            min: 1,
+            max: 45,
+          },
+        },
+        percent: {
+          type: Sequelize.FLOAT,
+          allowNull: false,
+          defalutValue: 0.0,
         },
       },
-      percent: {
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        defalutValue: 0.0,
-      },
-    },
-    {
-      freezeTableName: true,
-    }
-  );
+      {
+        sequelize,
+        freezeTableName: true,
+      }
+    );
+  }
 
-  PredictLottoPercent.associate = (models) => {
-    models.PredictLottoPercent.hasMany(models.AlgorithmKind, {
+  static associate(models) {
+    this.belongsTo(models.AlgorithmKind, {
       foreignKey: {
         name: 'algorithmKind_id',
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
     });
-  };
-
-  return PredictLottoPercent;
-};
+  }
+}

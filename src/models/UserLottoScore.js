@@ -1,38 +1,40 @@
-export default (sequelize, DataTypes) => {
-  const UserLottoScore = sequelize.define(
-    'UserLottoScore',
-    {
-      id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true,
-      },
-    },
-    {
-      freezeTableName: true,
-    }
-  );
+import Sequelize from 'sequelize';
 
-  UserLottoScore.associate = (models) => {
-    models.UserLottoScore.hasMany(models.User, {
+export default class UserLottoScore extends Sequelize.Model {
+  static init(sequelize) {
+    return super.init(
+      {
+        id: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          primaryKey: true,
+          autoIncrement: true,
+        },
+      },
+      {
+        sequelize,
+        freezeTableName: true,
+      }
+    );
+  }
+
+  static associate(models) {
+    this.belongsTo(models.User, {
       foreignKey: {
         name: 'user_id',
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       as: 'users',
     });
 
-    models.UserLottoScore.hasMany(models.LottoScore, {
+    this.belongsTo(models.LottoScore, {
       foreignKey: {
         name: 'lottoScore_id',
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       as: 'lottos',
     });
-  };
-
-  return UserLottoScore;
-};
+  }
+}

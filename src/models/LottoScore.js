@@ -1,34 +1,38 @@
-export default (sequelize, DataTypes) => {
-  const LottoScore = sequelize.define(
-    'LottoScore',
-    {
-      id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true,
-      },
-      ranking: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        min: 1,
-        max: 7,
-      },
-    },
-    {
-      freezeTableName: true,
-    }
-  );
+import Sequelize from 'sequelize';
 
-  LottoScore.associate = (models) => {
-    models.LottoScore.hasMany(models.PredictLotto, {
+export default class LottoScore extends Sequelize.Model {
+  static init(sequelize) {
+    return super.init(
+      {
+        id: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          primaryKey: true,
+          autoIncrement: true,
+        },
+        ranking: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          defaultValue: 7,
+          min: 1,
+          max: 7,
+        },
+      },
+      {
+        sequelize,
+        freezeTableName: true,
+      }
+    );
+  }
+
+  static associate(models) {
+    this.belongsTo(models.PredictLotto, {
       foreignKey: {
         name: 'predictLotto_id',
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
+        sourceKey: 'id',
       },
     });
-  };
-
-  return LottoScore;
-};
+  }
+}

@@ -1,26 +1,28 @@
-export default (sequelize, DataTypes) => {
-  const User = sequelize.define(
-    'User',
-    {
-      id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true,
-      },
-      nickNmae: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      uuid: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-    },
-    {
-      freezeTableName: true,
-    }
-  );
+import Sequelize from 'sequelize';
 
-  return User;
-};
+export default class User extends Sequelize.Model {
+  static init(sequelize) {
+    return super.init(
+      {
+        id: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          primaryKey: true,
+          autoIncrement: true,
+        },
+        nickNmae: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+        uuid: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+      },
+      {
+        sequelize,
+        freezeTableName: true,
+      }
+    );
+  }
+}

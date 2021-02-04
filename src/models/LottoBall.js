@@ -1,61 +1,63 @@
-export default (sequelize, DataTypes) => {
-  const LottoBall = sequelize.define(
-    'LottoBall',
-    {
-      id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true,
-      },
-      num: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      ball: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-          min: 1,
-          max: 45,
-        },
-      },
-      isCorrect: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defalutValue: false,
-      },
-    },
-    {
-      indexes: [
-        {
-          fields: ['predictLotto_id'],
-        },
-        {
-          fields: ['lottoWin_id'],
-        },
-      ],
-    },
-    {
-      freezeTableName: true,
-    }
-  );
+import Sequelize from 'sequelize';
 
-  LottoBall.associate = (models) => {
-    models.LottoBall.belongsTo(models.PredictLotto, {
+export default class LottoBall extends Sequelize.Model {
+  static init(sequelize) {
+    return super.init(
+      {
+        id: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          primaryKey: true,
+          autoIncrement: true,
+        },
+        num: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+        },
+        ball: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          validate: {
+            min: 1,
+            max: 45,
+          },
+        },
+        isCorrect: {
+          type: Sequelize.BOOLEAN,
+          allowNull: false,
+          defalutValue: false,
+        },
+      },
+      {
+        sequelize,
+        freezeTableName: true,
+      },
+      {
+        indexes: [
+          {
+            fields: ['predictLotto_id'],
+          },
+          {
+            fields: ['lottoWin'],
+          },
+        ],
+      }
+    );
+  }
+
+  static associate(models) {
+    this.belongsTo(models.PredictLotto, {
       foreignKey: {
         name: 'predictLotto_id',
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
       },
     });
 
-    models.LottoBall.belongsTo(models.LottoWin, {
+    this.belongsTo(models.LottoRound, {
       foreignKey: {
-        name: 'lottoWin_id',
-        type: DataTypes.INTEGER,
+        name: 'lottoWin',
+        type: Sequelize.INTEGER,
       },
     });
-  };
-
-  return LottoBall;
-};
+  }
+}
