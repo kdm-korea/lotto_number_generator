@@ -2,10 +2,10 @@ import http from 'http';
 import express from 'express';
 import './setting/env.platform';
 import api from './router';
-import db from './config/mariadb.config';
+import { sequelize } from './setting/db.init';
 import { CustomErrorHandler, NotFoundErrorHandler } from './middleware/error';
 
-db.sequelize
+sequelize
   .sync()
   .then(() => {
     console.log('🟢 DB Connect Success!!!');
