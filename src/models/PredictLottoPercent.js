@@ -26,18 +26,13 @@ export default class PredictLottoPercent extends Sequelize.Model {
       },
       {
         sequelize,
-        freezeTableName: true,
+        timestamps: false,
+        tableName: 'PredictLottoPercent',
       }
     );
   }
 
   static associate(models) {
-    this.belongsTo(models.AlgorithmKind, {
-      foreignKey: {
-        name: 'algorithmKind_id',
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-    });
+    this.belongsTo(models.AlgorithmKind);
   }
 }

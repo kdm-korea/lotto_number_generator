@@ -13,25 +13,21 @@ export default class PredictLotto extends Sequelize.Model {
       },
       {
         sequelize,
-        freezeTableName: true,
+        timestamps: false,
+        tableName: 'PredictLotto',
       }
     );
   }
 
   static associate(models) {
-    this.belongsTo(models.LottoRound, {
-      foreignKey: {
-        name: 'lottoRound_id',
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        targetKey: 'id',
-      },
-    });
+    this.belongsTo(models.LottoRound, { freezeTableName: true });
 
-    this.belongsTo(models.AlgorithmKind, {
+    this.belongsTo(models.AlgorithmKind);
+
+    this.hasMany(models.LottoScore);
+
+    this.hasMany(models.LottoBall, {
       foreignKey: {
-        name: 'algorithmKind_id',
-        type: Sequelize.INTEGER,
         allowNull: true,
       },
     });

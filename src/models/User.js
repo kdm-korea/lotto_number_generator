@@ -18,11 +18,21 @@ export default class User extends Sequelize.Model {
           type: Sequelize.STRING,
           allowNull: false,
         },
+        createdAt: {
+          type: Sequelize.DATE,
+        },
+        updatedAt: {
+          type: Sequelize.DATE,
+        },
       },
       {
         sequelize,
-        freezeTableName: true,
+        tableName: 'User',
       }
     );
+  }
+
+  static associate(models) {
+    this.hasMany(models.UserLottoScore);
   }
 }

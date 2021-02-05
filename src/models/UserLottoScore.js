@@ -10,31 +10,23 @@ export default class UserLottoScore extends Sequelize.Model {
           primaryKey: true,
           autoIncrement: true,
         },
+        createdAt: {
+          type: Sequelize.DATE,
+        },
+        updatedAt: {
+          type: Sequelize.DATE,
+        },
       },
       {
         sequelize,
-        freezeTableName: true,
+        tableName: 'UserLottoScore',
       }
     );
   }
 
   static associate(models) {
-    this.belongsTo(models.User, {
-      foreignKey: {
-        name: 'user_id',
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      as: 'users',
-    });
+    this.belongsTo(models.User);
 
-    this.belongsTo(models.LottoScore, {
-      foreignKey: {
-        name: 'lottoScore_id',
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      as: 'lottos',
-    });
+    this.belongsTo(models.LottoScore);
   }
 }

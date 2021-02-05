@@ -20,19 +20,15 @@ export default class LottoScore extends Sequelize.Model {
       },
       {
         sequelize,
-        freezeTableName: true,
+        timestamps: false,
+        tableName: 'LottoScore',
       }
     );
   }
 
   static associate(models) {
-    this.belongsTo(models.PredictLotto, {
-      foreignKey: {
-        name: 'predictLotto_id',
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        sourceKey: 'id',
-      },
-    });
+    this.belongsTo(models.PredictLotto);
+
+    this.hasMany(models.UserLottoScore);
   }
 }

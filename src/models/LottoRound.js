@@ -15,11 +15,25 @@ export default class LottoRound extends Sequelize.Model {
           allowNull: false,
           uniqueKey: true,
         },
+        createdAt: {
+          type: Sequelize.DATE,
+        },
+        updatedAt: {
+          type: Sequelize.DATE,
+        },
       },
       {
         sequelize,
-        freezeTableName: true,
+        tableName: 'LottoRound',
       }
     );
+  }
+
+  static associate(models) {
+    this.hasMany(models.PredictLotto);
+
+    this.hasMany(models.LottoBall, {
+      foreignKey: { name: 'LottoWin', allowNull: true },
+    });
   }
 }

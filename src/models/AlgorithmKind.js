@@ -11,15 +11,27 @@ export default class AlgorithmKind extends Sequelize.Model {
           autoIncrement: true,
         },
         kind: {
-          type: Sequelize.INTEGER,
+          type: Sequelize.STRING,
           allowNull: false,
           uniqueKey: true,
         },
+        createdAt: {
+          type: Sequelize.DATE,
+        },
+        updatedAt: {
+          type: Sequelize.DATE,
+        },
       },
+
       {
         sequelize,
-        freezeTableName: true,
+        tableName: 'AlgorithmKind',
       }
     );
+  }
+
+  static associate(models) {
+    this.hasMany(models.PredictLotto);
+    this.hasMany(models.PredictLottoPercent);
   }
 }

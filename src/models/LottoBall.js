@@ -25,12 +25,13 @@ export default class LottoBall extends Sequelize.Model {
         isCorrect: {
           type: Sequelize.BOOLEAN,
           allowNull: false,
-          defalutValue: false,
+          defaultValue: false,
         },
       },
       {
         sequelize,
-        freezeTableName: true,
+        tableName: 'LottoBall',
+        timestamps: false,
       },
       {
         indexes: [
@@ -38,7 +39,7 @@ export default class LottoBall extends Sequelize.Model {
             fields: ['predictLotto_id'],
           },
           {
-            fields: ['lottoWin'],
+            fields: ['lottWin'],
           },
         ],
       }
@@ -46,18 +47,8 @@ export default class LottoBall extends Sequelize.Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.PredictLotto, {
-      foreignKey: {
-        name: 'predictLotto_id',
-        type: Sequelize.INTEGER,
-      },
-    });
+    this.belongsTo(models.PredictLotto, { freezeTableName: true });
 
-    this.belongsTo(models.LottoRound, {
-      foreignKey: {
-        name: 'lottoWin',
-        type: Sequelize.INTEGER,
-      },
-    });
+    this.belongsTo(models.LottoRound, { foreignKey: 'LottoWin' });
   }
 }
