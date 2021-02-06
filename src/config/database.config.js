@@ -6,7 +6,19 @@ export default {
   port: process.env.DB_PORT,
   dialect: 'mariadb',
   logging: false,
-  freezeTableName: true,
+  define: {
+    freezeTableName: true,
+    query: {
+      raw: true,
+    },
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 3000,
+      idle: 1000,
+      connectTimeout: 1000,
+    },
+  },
   timestamps: false,
   underscored: false,
 };
