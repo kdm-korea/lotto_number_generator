@@ -18,8 +18,9 @@ export default class UserLottoScore extends Sequelize.Model {
         },
       },
       {
+        modelName: 'UserLottoScore',
+        freezeTableName: true,
         sequelize,
-        tableName: 'UserLottoScore',
       }
     );
   }

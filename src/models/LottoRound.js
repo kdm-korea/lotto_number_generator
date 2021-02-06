@@ -23,8 +23,9 @@ export default class LottoRound extends Sequelize.Model {
         },
       },
       {
+        modelName: 'LottoRound',
+        freezeTableName: true,
         sequelize,
-        tableName: 'LottoRound',
       }
     );
   }

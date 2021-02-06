@@ -29,9 +29,10 @@ export default class LottoBall extends Sequelize.Model {
         },
       },
       {
-        sequelize,
-        tableName: 'LottoBall',
+        modelName: 'LottoBall',
+        freezeTableName: true,
         timestamps: false,
+        sequelize,
       },
       {
         indexes: [

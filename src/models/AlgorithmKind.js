@@ -24,8 +24,9 @@ export default class AlgorithmKind extends Sequelize.Model {
       },
 
       {
+        modelName: 'AlgorithmKind',
+        freezeTableName: true,
         sequelize,
-        tableName: 'AlgorithmKind',
       }
     );
   }

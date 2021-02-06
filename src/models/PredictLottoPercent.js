@@ -25,9 +25,10 @@ export default class PredictLottoPercent extends Sequelize.Model {
         },
       },
       {
-        sequelize,
+        modelName: 'PredictLottoPercent',
+        freezeTableName: true,
         timestamps: false,
-        tableName: 'PredictLottoPercent',
+        sequelize,
       }
     );
   }

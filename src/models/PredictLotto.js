@@ -12,9 +12,10 @@ export default class PredictLotto extends Sequelize.Model {
         },
       },
       {
-        sequelize,
+        modelName: 'PredictLotto',
+        freezeTableName: true,
         timestamps: false,
-        tableName: 'PredictLotto',
+        sequelize,
       }
     );
   }
@@ -24,7 +25,7 @@ export default class PredictLotto extends Sequelize.Model {
 
     this.belongsTo(models.AlgorithmKind);
 
-    this.hasMany(models.LottoScore);
+    this.belongsTo(models.LottoScore);
 
     this.hasMany(models.LottoBall, {
       foreignKey: {

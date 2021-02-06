@@ -26,8 +26,9 @@ export default class User extends Sequelize.Model {
         },
       },
       {
+        modelName: 'User',
+        freezeTableName: true,
         sequelize,
-        tableName: 'User',
       }
     );
   }
