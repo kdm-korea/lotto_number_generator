@@ -4,7 +4,7 @@ export default {
   password: process.env.DB_PASSWORD,
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
-  dialect: 'mariadb',
+  dialect: process.env.DIALECT,
   logging: false,
   define: {
     freezeTableName: true,
