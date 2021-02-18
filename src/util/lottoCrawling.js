@@ -3,9 +3,9 @@ import NotFoundError from '../component/exception/NotFound.Error';
 
 /** 로또 사이트의 당첨번호 크롤링
  * @Request
- * @param {Number} round
+ * @param {Number} round 회차
  */
-const crawling = async (round) => {
+const lottoCrawling = async (round) => {
   const crawl = await axios.get(
     `https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=${round}`
   );
@@ -31,4 +31,4 @@ const crawling = async (round) => {
   };
 };
 
-export default crawling;
+export default lottoCrawling;
