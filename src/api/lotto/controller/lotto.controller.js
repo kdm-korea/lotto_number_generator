@@ -1,8 +1,8 @@
+import { LottoRound } from '../../../models';
 import lottoCrawling from '../../../util/lottoCrawling';
 import {
-  addLottoRound,
-  currentRound,
-  saveLottoResult,
+  savePredictLottoBallResult,
+  savePredictLottoRank,
   saveLottoWin,
 } from '../service';
 
@@ -10,11 +10,21 @@ import {
  */
 const appearLottoWin = async (req, res, next) => {
   try {
-    const round = await currentRound();
+    const currentLotto = await LottoRound.getCurrentRound();
 
-    const lottoWin = await lottoCrawling(round);
+    const lottoWin = await lottoCrawling(currentLotto.round);
 
-    await saveLottoWin(lottoWin.round, lottoWin.balls);
+    await saveLottoWin(lottoWin);
+
+    await savePredictLottoBallResult(lottoWin);
+
+    await savePredictLottoRank(lottoWin);
+
+    res.status(204).json();
+  } catch (error) {
+    next(error);
+  }
+};
 
     await saveLottoResult(lottoWin.round, lottoWin.balls);
 
