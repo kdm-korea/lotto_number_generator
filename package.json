@@ -6,7 +6,8 @@
   "author": "KDM_korea <kdm_korea@naver.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon --exec babel-node ./src/server"
+    "dev": "cross-env NODE_ENV=development nodemon --exec babel-node ./src/server",
+    "test": "cross-env NODE_ENV=test nodemon --exec mocha -r @babel/register ./src/test/**/*.spec.js"
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.12.15",
