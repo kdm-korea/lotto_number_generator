@@ -28,6 +28,6 @@ export default class UserLottoScore extends Sequelize.Model {
   static associate(models) {
     this.belongsTo(models.User);
 
-    this.belongsTo(models.LottoScore);
+    this.belongsTo(models.PredictLotto);
   }
 }

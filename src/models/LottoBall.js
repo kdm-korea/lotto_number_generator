@@ -1,4 +1,4 @@
-import Sequelize from 'sequelize';
+import Sequelize, { Op } from 'sequelize';
 
 export default class LottoBall extends Sequelize.Model {
   static init(sequelize) {
@@ -51,5 +51,23 @@ export default class LottoBall extends Sequelize.Model {
     this.belongsTo(models.PredictLotto, { freezeTableName: true });
 
     this.belongsTo(models.LottoRound, { foreignKey: 'LottoWin' });
+  }
+
+  /**
+   * 당첨된 볼의 결과를 저장
+   * @param {Array[number]} balls 당첨된 로또 볼
+   * @param {Array[number]} predictLottoIds 예측한 로또의 Id
+   */
+  static async savePredictResult(balls, predictLottoIds) {
+    this.update(
+      {
+        isCorrect: true,
+      },
+      {
+        where: {
+          [Op.and]: [{ ball: balls }, { predictLottoId: predictLottoIds }],
+        },
+      }
+    );
   }
 }

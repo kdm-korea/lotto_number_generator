@@ -37,4 +37,22 @@ export default class LottoRound extends Sequelize.Model {
       foreignKey: { name: 'LottoWin', allowNull: true },
     });
   }
+
+  /**
+   * 현재 로또 회차 조회
+   * @response
+   * @param {Object} LottoRound
+   */
+  static async getCurrentRound() {
+    return this.findOne({
+      attributes: ['id', 'round'],
+      order: [['round', 'DESC']],
+      raw: true,
+    });
+  }
+
+  static async createNextRound() {
+    const currentRound = await this.max('round');
+    await this.create({ round: currentRound + 1 });
+  }
 }
