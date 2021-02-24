@@ -1,9 +1,12 @@
-import { LottoRound } from '../../../models';
+import { AlgorithmKind, LottoRound } from '../../../models';
 import lottoCrawling from '../../../util/lottoCrawling';
 import {
   savePredictLottoBallResult,
   savePredictLottoRank,
   saveLottoWin,
+  getLottoBall,
+  calAlgorithm,
+  saveAlgorithmResult,
 } from '../service';
 
 /** 로또 당첨결과에 대한 로직
@@ -26,10 +29,24 @@ const appearLottoWin = async (req, res, next) => {
   }
 };
 
-    await saveLottoResult(lottoWin.round, lottoWin.balls);
+/** 알고리즘을 계산하는 로직
+ */
+const calPredictLotto = async (req, res, next) => {
+  try {
+    const currentRound = await LottoRound.getCurrentRound();
 
-    await addLottoRound(round);
+    const winBalls = await getLottoBall(currentRound.round);
 
+    const algorithmKindsWithPercents = await AlgorithmKind.findAllWithAlgorithmPercent();
+
+    const algorithmResults = await calAlgorithm(
+      algorithmKindsWithPercents,
+      winBalls
+    );
+
+    await saveAlgorithmResult(algorithmResults);
+
+    await LottoRound.createNextRound();
     res.status(204).json();
   } catch (error) {
     console.log(error);
@@ -37,4 +54,4 @@ const appearLottoWin = async (req, res, next) => {
   }
 };
 
-export default { appearLottoWin };
+export default { appearLottoWin, calPredictLotto };
