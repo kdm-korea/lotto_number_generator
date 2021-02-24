@@ -1,4 +1,5 @@
 import Sequelize, { Op } from 'sequelize';
+import { LottoRound } from '.';
 
 export default class LottoBall extends Sequelize.Model {
   static init(sequelize) {
@@ -40,7 +41,7 @@ export default class LottoBall extends Sequelize.Model {
             fields: ['predictLotto_id'],
           },
           {
-            fields: ['lottWin'],
+            fields: ['lottoWin'],
           },
         ],
       }
@@ -69,5 +70,22 @@ export default class LottoBall extends Sequelize.Model {
         },
       }
     );
+  }
+
+  /** 당첨된 로또볼 반환
+   * @param {number} round 로또 회차
+   */
+  static async findBallsByRound(round) {
+    return this.findAll({
+      attributes: ['ball'],
+      include: {
+        model: LottoRound,
+        attributes: [],
+        where: { round },
+        right: true,
+      },
+      raw: true,
+      nest: true,
+    });
   }
 }
