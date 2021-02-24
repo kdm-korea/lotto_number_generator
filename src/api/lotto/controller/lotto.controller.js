@@ -12,13 +12,13 @@ const appearLottoWin = async (req, res, next) => {
   try {
     const currentLotto = await LottoRound.getCurrentRound();
 
-    const lottoWin = await lottoCrawling(currentLotto.round);
+    const { balls, round } = await lottoCrawling(currentLotto.round);
 
-    await saveLottoWin(lottoWin);
+    await saveLottoWin(balls, round);
 
-    await savePredictLottoBallResult(lottoWin);
+    await savePredictLottoBallResult(balls, round);
 
-    await savePredictLottoRank(lottoWin);
+    await savePredictLottoRank(balls, round);
 
     res.status(204).json();
   } catch (error) {
