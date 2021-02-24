@@ -7,24 +7,20 @@ import { calLottoRank } from '../../../util/calLottoRank';
  * @param {Array<PredictLotto>} predictLottos 예측한 로또
  * @param {Array<number>} winBalls 당첨 볼들
  */
-const getPredicLottosRank = async (predictLottos, winBalls) =>
+const calPredicLottosRank = async (predictLottos, winBalls) =>
   predictLottos.map((predictLotto) => ({
     id: predictLotto.id,
     ranking: calLottoRank(_.map(predictLotto.LottoBalls, 'ball'), winBalls),
   }));
 
 /** 로또 순위 저장
- * @param {Object{round: number, balls: Array<number>}} lottoWin 당첨된 로또
+ * @param {Array<Number>} balls 로또 볼들
+ * @param {Number} round 회차
  */
-const execSavePredictLottoRank = async (lottoWin) => {
-  const predictLottos = await PredictLotto.findPredictBallByRound(
-    lottoWin.round
-  );
+const execSavePredictLottoRank = async (balls, round) => {
+  const predictLottos = await PredictLotto.findPredictBallByRound(round);
 
-  const predictLottosRank = await getPredicLottosRank(
-    predictLottos,
-    lottoWin.balls
-  );
+  const predictLottosRank = await calPredicLottosRank(predictLottos, balls);
 
   predictLottosRank.map(async (predictLottoRank) =>
     PredictLotto.update(
