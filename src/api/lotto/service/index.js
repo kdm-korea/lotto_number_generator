@@ -3,3 +3,4 @@ export { default as savePredictLottoBallResult } from './savePredictBall.result.
 export { default as savePredictLottoRank } from './savePredictLotto.rank.service';
 export { default as getLottoBall } from './getLottoBall.service';
 export { default as calAlgorithm } from './calAlgorithm.service';
+export { default as saveAlgorithmResult } from './saveAlgorithmResult.service';
