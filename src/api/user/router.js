@@ -1,6 +1,7 @@
 import express from 'express';
 import userController from './controller';
 import validator from './validation/user.schema';
+
 const router = express();
 
 /**
@@ -10,6 +11,5 @@ const router = express();
  * validation 필요
  */
 router.post('/', validator.createAccount, userController.createAccount);
-
 
 export default router;
