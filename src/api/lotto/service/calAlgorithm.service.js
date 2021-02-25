@@ -6,20 +6,16 @@ import { AlgorithmKind } from '../../../models';
  * @param {Array<AlgorithmKind>} algorithmKindsWithPercents 알고리즘들과 알고리즘별 퍼센트
  * @param {Array<number>} winBalls 로또 당첨볼
  */
-const execCalAlgorithm = async (algorithmKindsWithPercents, winBalls) => {
+const execCalAlgorithm = (algorithmKindsWithPercents, winBalls) => {
   const result = [];
 
-  const kalmanPercents = await Promise.all(
-    _.map(
-      _.filter(algorithmKindsWithPercents, { kind: 'kalmanFilter' }),
-      'PredictLottoPercents'
-    )
-  );
+  const kalmanPercents = _.chain(algorithmKindsWithPercents)
+    .filter({ kind: 'a' })
+    .map('PredictLottoPercents')
+    .value();
+  const kalmanFilterResult = kalmanFilter(kalmanPercents, winBalls);
 
-  const kalmanFilterResult = await kalmanFilter(kalmanPercents, winBalls);
-
-  await Promise.all(_.merge(result, kalmanFilterResult));
-
+  _.merge(result, kalmanFilterResult);
   return result;
 };
 
