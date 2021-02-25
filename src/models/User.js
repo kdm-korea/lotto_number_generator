@@ -10,7 +10,7 @@ export default class User extends Sequelize.Model {
           primaryKey: true,
           autoIncrement: true,
         },
-        nickNmae: {
+        nickName: {
           type: Sequelize.STRING,
           allowNull: false,
         },
