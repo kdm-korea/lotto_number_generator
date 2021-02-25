@@ -15,14 +15,10 @@ suite('Lotto crawling test', () => {
       round = 1;
     });
 
-    test('should be return answer', (done) => {
-      lottoCrawling(round)
-        .then((result) => {
-          result.should.be.deepEqual(answer);
-          done();
-        })
-        .catch(done);
-    });
+    test('should be return answer', () =>
+      lottoCrawling(round).then((result) =>
+        result.should.be.deepEqual(answer)
+      ));
   });
 
   suite('if no input data', () => {
@@ -30,14 +26,8 @@ suite('Lotto crawling test', () => {
       round = undefined;
     });
 
-    test('should be return NotFoundError', (done) => {
-      lottoCrawling(round)
-        .then(done)
-        .catch((err) => {
-          err.should.instanceof(NotFoundError);
-          done();
-        });
-    });
+    test('should be return NotFoundError', () =>
+      lottoCrawling(round).should.be.rejectedWith(NotFoundError));
   });
 
   suite('if input abnormal data', () => {
@@ -45,13 +35,7 @@ suite('Lotto crawling test', () => {
       round = -1;
     });
 
-    test('should be return NotFoundError', (done) => {
-      lottoCrawling(round)
-        .then(done)
-        .catch((err) => {
-          err.should.instanceof(NotFoundError);
-          done();
-        });
-    });
+    test('should be return NotFoundError', () =>
+      lottoCrawling(round).should.be.rejectedWith(NotFoundError));
   });
 });
