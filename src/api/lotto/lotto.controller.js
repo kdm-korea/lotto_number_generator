@@ -1,13 +1,13 @@
-import { AlgorithmKind, LottoRound } from '../../../models';
-import lottoCrawling from '../../../util/lottoCrawling';
+import { AlgorithmKind, LottoRound } from '../../models';
+import lottoCrawling from '../../util/lottoCrawling';
 import {
+  saveAlgorithmResult,
+  saveLottoWin,
   savePredictLottoBallResult,
   savePredictLottoRank,
-  saveLottoWin,
   getLottoBall,
   calAlgorithm,
-  saveAlgorithmResult,
-} from '../service';
+} from './service';
 
 /** 로또 당첨결과에 대한 로직
  */
@@ -39,9 +39,8 @@ const calPredictLotto = async (req, res, next) => {
 
     const algorithmKindsWithPercents = await AlgorithmKind.findAllWithAlgorithmPercent();
 
-    const algorithmResults = await calAlgorithm(
-      algorithmKindsWithPercents,
-      winBalls
+    const algorithmResults = await Promise.all(
+      calAlgorithm(algorithmKindsWithPercents, winBalls)
     );
 
     await saveAlgorithmResult(algorithmResults);
