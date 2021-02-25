@@ -1,5 +1,5 @@
 import express from 'express';
-import lottoController from './controller/lotto.controller';
+import lottoController from './lotto.controller';
 
 const router = express();
 
