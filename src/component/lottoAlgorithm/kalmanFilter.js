@@ -14,28 +14,25 @@ const filter = (current, lastest) => {
  * @param {Array<PredictLottoPercent>} kalmanPercents
  * @param {Array<number>} winBalls
  */
-const execKalmanFilter = async (kalmanPercents, winBalls) => {
-  console.log(winBalls);
-  return Promise.all(
-    kalmanPercents.map((predictPercent) => {
-      const current = {
-        percent:
-          winBalls.find((ball) => ball === predictPercent.ball) === undefined
-            ? 0
-            : 1,
-        theta: 0.5,
-      };
+const execKalmanFilter = (kalmanPercents, winBalls) => {
+  return kalmanPercents.map((predictPercent) => {
+    const current = {
+      percent:
+        winBalls.find((ball) => ball === predictPercent.ball) === undefined
+          ? 0
+          : 1,
+      theta: 0.5,
+    };
 
-      const lastest = {
-        percent: predictPercent.percent,
-        theta: 0.2,
-      };
+    const lastest = {
+      percent: predictPercent.percent,
+      theta: 0.2,
+    };
 
-      // eslint-disable-next-line no-param-reassign
-      predictPercent.percent = filter(current, lastest);
-      return predictPercent;
-    })
-  );
+    // eslint-disable-next-line no-param-reassign
+    predictPercent.percent = filter(current, lastest);
+    return predictPercent;
+  });
 };
 
 export default execKalmanFilter;
