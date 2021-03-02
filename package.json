@@ -1,0 +1,51 @@
+{
+  "name": "lotto",
+  "version": "0.0.1",
+  "main": "server.js",
+  "repository": "https://github.com/kdm-korea/lotto_number_generator",
+  "author": "KDM_korea <kdm_korea@naver.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon --exec babel-node ./src/server",
+    "test": "cross-env NODE_ENV=test nodemon --exec mocha -r @babel/register ./src/test/**/*.spec.js"
+  },
+  "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.12.15",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/runtime-corejs3": "^7.12.13",
+    "axios": "^0.21.1",
+    "core-js": "3",
+    "cross-env": "^7.0.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.7.0",
+    "http": "^0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.20",
+    "mariadb": "^2.5.2",
+    "moment": "^2.29.1",
+    "path": "^0.12.7",
+    "pm2": "^4.5.0",
+    "regenerator-runtime": "^0.13.7",
+    "sequelize": "5.22.3",
+    "should": "^13.2.3",
+    "sinon": "^9.2.4",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.8",
+    "@babel/core": "^7.12.8",
+    "@babel/node": "^7.12.6",
+    "@babel/preset-env": "^7.12.7",
+    "@babel/register": "^7.12.1",
+    "eslint": "^7.14.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "mocha": "^8.3.0",
+    "nodemon": "^2.0.6",
+    "prettier": "^2.2.0",
+    "sequelize-cli": "^5.5.1"
+  }
+}
