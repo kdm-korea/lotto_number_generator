@@ -12,4 +12,9 @@ const router = express();
  */
 router.post('/', validator.createAccount, userController.createAccount);
 
+/** 구독 취소 서비스
+ * 구독여부가 유저에게 있어양 함
+ */
+router.get('/', validator.cancelSubscribe, userController.cancelSubscribe);
+
 export default router;
