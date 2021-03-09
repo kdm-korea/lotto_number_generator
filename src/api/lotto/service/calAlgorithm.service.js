@@ -7,7 +7,7 @@ import { AlgorithmKind } from '../../../models';
  * @param {Array<number>} winBalls 로또 당첨볼
  */
 const execCalAlgorithm = (algorithmKindsWithPercents, winBalls) => {
-  const result = [];
+  const percents = [];
 
   const kalmanPercents = _.chain(algorithmKindsWithPercents)
     .filter({ kind: 'a' })
@@ -15,8 +15,8 @@ const execCalAlgorithm = (algorithmKindsWithPercents, winBalls) => {
     .value();
   const kalmanFilterResult = kalmanFilter(kalmanPercents, winBalls);
 
-  _.merge(result, kalmanFilterResult);
-  return result;
+  _.merge(percents, kalmanFilterResult);
+  return percents;
 };
 
 export default execCalAlgorithm;
