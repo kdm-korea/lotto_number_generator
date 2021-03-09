@@ -18,6 +18,11 @@ export default class User extends Sequelize.Model {
           type: Sequelize.STRING,
           allowNull: false,
         },
+        isSubscribe: {
+          type: Sequelize.BOOLEAN,
+          allowNull: false,
+          defaultValue: true,
+        },
         createdAt: {
           type: Sequelize.DATE,
         },
@@ -35,5 +40,9 @@ export default class User extends Sequelize.Model {
 
   static associate(models) {
     this.hasMany(models.UserLottoScore);
+  }
+
+  static async countByUUID(uuid) {
+    return this.count({ where: { uuid } });
   }
 }
