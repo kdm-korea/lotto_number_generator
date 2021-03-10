@@ -14,6 +14,9 @@ const createAccount = async (req, res, next) => {
   }
 };
 
+/** 구독 취소
+ */
+
 const cancelSubscribe = async (req, res, next) => {
   const { uuid } = req.params;
   userSerivce
