@@ -1,6 +1,17 @@
-export { default as saveLottoWin } from './saveLottoWin.service';
-export { default as savePredictLottoBallResult } from './savePredictBall.result.service';
-export { default as savePredictLottoRank } from './savePredictLotto.rank.service';
-export { default as getLottoBall } from './getLottoBall.service';
-export { default as calAlgorithm } from './calAlgorithm.service';
-export { default as saveAlgorithmResult } from './saveAlgorithmResult.service';
+import saveLottoWin from './saveLottoWin.service';
+import savePredictLottoBallResult from './savePredictBall.result.service';
+import savePredictLottoRank from './savePredictLotto.rank.service';
+import getLottoBall from './getLottoBall.service';
+import calAlgorithm from './calAlgorithm.service';
+import saveAlgorithmResult from './saveAlgorithmResult.service';
+import pushIFTTTPredictLotto from './pushIFTTTPredictLotto.service';
+
+export default {
+  saveLottoWin,
+  savePredictLottoBallResult,
+  savePredictLottoRank,
+  getLottoBall,
+  calAlgorithm,
+  saveAlgorithmResult,
+  pushIFTTTPredictLotto,
+};

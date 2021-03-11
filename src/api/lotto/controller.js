@@ -1,13 +1,6 @@
 import { AlgorithmKind, LottoRound } from '../../models';
 import lottoCrawling from '../../util/lottoCrawling';
-import {
-  saveAlgorithmResult,
-  saveLottoWin,
-  savePredictLottoBallResult,
-  savePredictLottoRank,
-  getLottoBall,
-  calAlgorithm,
-} from './service';
+import lottoService from './service';
 
 /** 로또 당첨결과에 대한 로직
  */
@@ -17,11 +10,11 @@ const appearLottoWin = async (req, res, next) => {
 
     const { balls, round } = await lottoCrawling(currentLotto.round);
 
-    await saveLottoWin(balls, round);
+    await lottoService.saveLottoWin(balls, round);
 
-    await savePredictLottoBallResult(balls, round);
+    await lottoService.savePredictLottoBallResult(balls, round);
 
-    await savePredictLottoRank(balls, round);
+    await lottoService.savePredictLottoRank(balls, round);
 
     res.status(204).json();
   } catch (error) {
@@ -35,15 +28,15 @@ const calPredictLotto = async (req, res, next) => {
   try {
     const currentRound = await LottoRound.getCurrentRound();
 
-    const winBalls = await getLottoBall(currentRound.round);
+    const winBalls = await lottoService.getLottoBall(currentRound.round);
 
     const algorithmKindsWithPercents = await AlgorithmKind.findAllWithAlgorithmPercent();
 
     const algorithmResults = await Promise.all(
-      calAlgorithm(algorithmKindsWithPercents, winBalls)
+      lottoService.calAlgorithm(algorithmKindsWithPercents, winBalls)
     );
 
-    await saveAlgorithmResult(algorithmResults);
+    await lottoService.saveAlgorithmResult(algorithmResults);
 
     await LottoRound.createNextRound();
     res.status(204).json();
@@ -53,4 +46,13 @@ const calPredictLotto = async (req, res, next) => {
   }
 };
 
-export default { appearLottoWin, calPredictLotto };
+const pushIFTTTPredictLotto = async (req, res, next) => {
+  try {
+    await lottoService.pushIFTTTPredictLotto();
+    res.status(204).json();
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default { appearLottoWin, calPredictLotto, pushIFTTTPredictLotto };
