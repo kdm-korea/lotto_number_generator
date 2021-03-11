@@ -15,7 +15,7 @@ const sendIFTTTPredictLotto = (uuid, round, predictLotto) => {
  */
 const execPushIFTTTPredictLotto = async () => {
   const currentLottoRound = await LottoRound.getCurrentRound();
-  const userLottoScores = await UserLottoScore.findAllWithUserWithPredictLottoByPredictLottoId(
+  const userLottoScores = await UserLottoScore.findAllWithUserWithPredictLottoByLottoRoundId(
     currentLottoRound.id
   );
   const lottoballs = await LottoBall.findAllByPreidctLottoId(

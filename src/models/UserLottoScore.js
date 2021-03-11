@@ -35,7 +35,7 @@ export default class UserLottoScore extends Sequelize.Model {
   /** 유저가 가진 예상로또의 정보와 유저의 정보를 제공하는 메소드
    * @param {number} id 예상로또 Id
    */
-  static async findAllWithUserWithPredictLottoByPredictLottoId(id) {
+  static async findAllWithUserWithPredictLottoByLottoRoundId(id) {
     return this.findAll({
       include: [
         {
