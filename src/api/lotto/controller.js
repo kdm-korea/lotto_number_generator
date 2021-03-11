@@ -46,6 +46,8 @@ const calPredictLotto = async (req, res, next) => {
   }
 };
 
+/** 예상 로또번호를 IFTTT에 푸시하는 로직
+ */
 const pushIFTTTPredictLotto = async (req, res, next) => {
   try {
     await lottoService.pushIFTTTPredictLotto();
@@ -55,4 +57,20 @@ const pushIFTTTPredictLotto = async (req, res, next) => {
   }
 };
 
-export default { appearLottoWin, calPredictLotto, pushIFTTTPredictLotto };
+/** 로또 결과를 IFTTT에 푸시하는 로직
+ */
+const pushIFTTTLottoResult = async (req, res, next) => {
+  try {
+    await lottoService.pushIFTTTLottoResult();
+    res.status(204).json();
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default {
+  appearLottoWin,
+  calPredictLotto,
+  pushIFTTTPredictLotto,
+  pushIFTTTLottoResult,
+};

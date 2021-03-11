@@ -5,6 +5,7 @@ import getLottoBall from './getLottoBall.service';
 import calAlgorithm from './calAlgorithm.service';
 import saveAlgorithmResult from './saveAlgorithmResult.service';
 import pushIFTTTPredictLotto from './pushIFTTTPredictLotto.service';
+import pushIFTTTLottoResult from './pushIFTTTLottoResult.service';
 
 export default {
   saveLottoWin,
@@ -14,4 +15,5 @@ export default {
   calAlgorithm,
   saveAlgorithmResult,
   pushIFTTTPredictLotto,
+  pushIFTTTLottoResult,
 };
