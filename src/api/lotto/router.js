@@ -21,4 +21,10 @@ router.get('/calculator', lottoController.calPredictLotto);
  */
 router.get('/predict/notify', lottoController.pushIFTTTPredictLotto);
 
+/**
+ * 매주 토요일 21:30 로또 추첨 결과를 각 사용자에게 보내주는 API
+ * 서버에 걸어놓을 예정
+ */
+router.get('/result', lottoController.pushIFTTTLottoResult);
+
 export default router;
