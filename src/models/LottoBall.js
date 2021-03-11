@@ -88,4 +88,11 @@ export default class LottoBall extends Sequelize.Model {
       nest: true,
     });
   }
+
+  /** 예상 로또 테이블 id로 LottoBall들을 반환하는 메소드
+   * @param {number} predictLottoId 에상 로또 테이블 Id
+   */
+  static async findAllByPreidctLottoId(predictLottoId) {
+    return this.findAll({ where: { predictLottoId }, raw: true, nest: true });
+  }
 }
