@@ -8,8 +8,8 @@ import axios from 'axios';
  * @param {*} value2 data에 들어갈 인자값
  * @param {*} value3 data에 들어갈 인자값
  */
-const requestIFTTT = (uuid, event, value1 = '', value2 = '', value3 = '') => {
-  axios.post(
+const pushIFTTT = (uuid, event, value1 = '', value2 = '', value3 = '') => {
+  const result = axios.post(
     `https://maker.ifttt.com/trigger/${event}/with/key/${uuid}`,
     {
       value1,
@@ -20,4 +20,4 @@ const requestIFTTT = (uuid, event, value1 = '', value2 = '', value3 = '') => {
   );
 };
 
-export default requestIFTTT;
+export default pushIFTTT;
